@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Carbon\Carbon;
 
 class User extends Authenticatable
 {
@@ -41,4 +42,112 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+    
+    
+     /**
+     * このユーザが所有する勤怠表。（ Attendanceモデルとの関係を定義）
+     */
+    public function attendances()
+    {
+        return $this->hasMany(Attendance::class);
+    }
+    
+    
+       /**
+     * このユーザに関係するモデルの件数をロードする。
+     */
+    public function loadRelationshipCounts()
+    {
+        $this->loadCount(['followings','followers','attendances']);
+    }
+    
+    
+     /**
+     * このユーザがフォロー中のユーザ。（Userモデルとの関係を定義）
+     */
+    public function followings()
+    {
+        return $this->belongsToMany(User::class, 'user_follow', 'user_id', 'follow_id')->withTimestamps();
+    }
+    
+    /**
+     * このユーザをフォロー中のユーザ。（Userモデルとの関係を定義）
+     */
+    public function followers()
+    {
+        return $this->belongsToMany(User::class, 'user_follow', 'follow_id', 'user_id')->withTimestamps();
+    }
+    
+    
+     /**
+     * $userIdで指定されたユーザをフォローする。
+     *
+     * @param  int  $userId
+     * @return bool
+     */
+     public function follow($userId)
+    {
+        $exist = $this->is_following($userId);
+        
+        if ($exist) {
+            return false;
+        } else {
+            $this->followings()->attach($userId);
+            return true;
+        }
+    }
+    
+    /**
+     * $userIdで指定されたユーザをアンフォローする。
+     * 
+     * @param  int $usereId
+     * @return bool
+     */
+    public function unfollow($userId)
+    {
+        $exist = $this->is_following($userId);
+        
+        if ($exist) {
+            $this->followings()->detach($userId);
+            return true;
+        } else {
+            return false;
+        }
+    }
+    
+    
+    /**
+     * 指定された$userIdのユーザをこのユーザがフォロー中であるか調べる。フォロー中ならtrueを返す。
+     * 
+     * @param  int $userId
+     * @return bool
+     */
+    public function is_following($userId)
+    {
+        return $this->followings()->where('follow_id', $userId)->exists();
+    }
+    
+    
+         /**
+     * 勤怠カレンダー　日付自動取得
+     */
+    public function calendar()
+    {
+        $firstOfMonth = Carbon::now()->firstOfMonth();
+        $endOfMonth = $firstOfMonth->copy()->endOfMonth()->format('Y-m-d');
+
+        $date = [];
+        for ($i = 0; true; $i++) {
+        $A = $firstOfMonth->copy()->addDays($i)->format('Y-m-d');
+        if ($A > $endOfMonth) {
+            break;
+        }
+        $date[] = $A;
+        // echo $date->format('m/d'). PHP_EOL;
+           
+        }
+         return $date;
+    }   
+    
+    
 }

@@ -1,15 +1,16 @@
 @if (Auth::check())
-    {{-- ユーザ一覧ページへのリンク --}}
-    <li><a class="link link-hover" href="#">Users</a></li>
-    {{-- ユーザ詳細ページへのリンク --}}
-    <li><a class="link link-hover" href="#">{{ Auth::user()->name }}&#39;s profile</a></li>
+    {{-- 勤怠表入力ページへのリンク --}}
+    <li><a class="link link-hover" href="{{ route('login') }}">{{ Auth::user()->name }}&#39;</a></li>
+    
+     {{-- 勤怠一覧ページへのリンク --}}
+    <li><a class="link link-hover" href="{{ route('login') }}">勤怠一覧</a></li>
+    
+     {{-- ユーザ一覧ページへのリンク --}}
+    <li><a class="link link-hover" href="{{ route('login') }}">ユーザー一覧</a></li>
   
     {{-- ログアウトへのリンク --}}
     <li><a class="link link-hover" href="#" onclick="event.preventDefault();this.closest('form').submit();">Logout</a></li>
 @else
-    {{-- ユーザ登録ページへのリンク --}}
-    <li><a class="link link-hover" href="{{ route('register') }}">Signup</a></li>
-    
     {{-- ログインページへのリンク --}}
     <li><a class="link link-hover" href="{{ route('login') }}">Login</a></li>
 @endif
