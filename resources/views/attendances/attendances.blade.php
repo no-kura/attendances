@@ -4,7 +4,7 @@
     <style>
     .txt{
         display: inline-block;
-        width: 100%;;
+        width: 100%;
         padding: 0.2em;
         line-height: 0.5;
         border: 1px solid #999;
@@ -69,42 +69,55 @@
             
             <tbody>
                 
-                @foreach ($date as $key=>$d)  
+                @foreach ($date as $key=>$d) 
                 
                 <tr align="center">
                 {{--年月日と曜日の自動表示--}}
                 
-               
                     <td align="center" width="200">{{ $d->isoformat('YYYY/MM/DD(ddd)') }}
-                 {{--
-                        @if($datetime )
-                            <span class="日" style="color: red">{{ $d }}</span>
-                        @elseif($datetime)
-                            <span class="土" style="color:blue;">{{ $d }}</span>
-                        @else
-                            <span class="平日">{{ $d }}</span>
-                        @endif
-                --}}
-                        
                     </td>
+                  
+                @php
+                    $j = $attendances-> where('date',$d);
+                @endphp
+               
+            
+                @if($j)
                     
                 {{--出勤時間--}}
-                    <td align="center" width="150"><input type="time" name="punchin{{$key}}" min="00:00" max="24:00"></td>
+                    <td align="center" width="150"><input type="time" name="punchin{{$key}}" min="00:00" max="24:00" value="">{{$j[0]->punchin}}</td>
+                    
                     
                  {{--退勤時間--}}   
                     <td align="center" width="150"><input type="time" name="punchout{{$key}}" min="00:00" max="24:00"></td>
                     
                 {{--勤務時間--}}    
-                    <td align="center" width="150"></td>
+                    <td align="center" width="150"><input type="text" name="working{{$key}}" disabled></td>
                     
                 {{--備考（MEMO）--}}    
-                    <td align="left"><input type="text" class="txt" name="memo{{$key}}" size="30"></td>
+                    <td align="left"><input type="text" class="txt" name="memo{{$key}}" size="30" ></td>
                 
+                
+                @else
+                {{--出勤時間--}}
+                    <td align="center" width="150"><input type="time" name="punchin{{$key}}" min="00:00" max="24:00" value=""></td>
+                    
+                    
+                 {{--退勤時間--}}   
+                    <td align="center" width="150"><input type="time" name="punchout{{$key}}" min="00:00" max="24:00" value=""></td>
+                    
+                {{--勤務時間--}}    
+                    <td align="center" width="150"><input type="text" name="working{{$key}}" value="" disabled></td>
+                    
+                {{--備考（MEMO）--}}    
+                    <td align="left"><input type="text" class="txt" name="memo{{$key}}" size="30" value=""></td>
+                
+                @endif
                 <input type="hidden" name="date{{$key}}" value={{$d}}>
-                
                 </tr>
-              <input type="hidden" name="key" value={{$key}}>
+                <input type="hidden" name="key" value={{$key}}>
                 @endforeach
+                
                 <input type="hidden" name="user_id" value={{$user->id}}>
                     
                 {{--@foreach ($attendances as $attendance)  

@@ -31,6 +31,17 @@ require __DIR__.'/auth.php';
 
 
 Route::group(['middleware' => ['auth']], function () {                                    // 追記
+Route::resource('users', UsersController::class,['only' => ['index', 'show']]);     // 追記
+});
+
+// Route::group(['middleware' => ['auth']], function () {
+//     Route::post('attendances', [AttendancesController::class,'index'])->name('');
+//     Route::post('attendances', [AttendancesController::class,'store'])->name('');
+
+//     });                                                                                       // 追記
+
+
+Route::group(['middleware' => ['auth']], function () {                                    // 追記
     Route::resource('users', UsersController::class,['only' => ['index', 'show']]);     // 追記
     Route::resource('attendances', AttendancesController::class, ['only' => ['index','store']]);
 });                                                                                       // 追記
