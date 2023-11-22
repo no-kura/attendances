@@ -14,7 +14,7 @@
                 <div class="dropdown dropdown-end">
                     <button type="button" tabindex="0" class="btn btn-ghost normal-case font-normal lg:hidden">
                         @if (Auth::check())
-                            {{ Auth::user()->name }}
+                        　  ホーム
                         @else
                             Guest
                         @endif

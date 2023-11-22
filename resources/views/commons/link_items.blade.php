@@ -1,6 +1,6 @@
 @if (Auth::check())
     {{-- 勤怠表入力ページへのリンク --}}
-    <li><a class="link link-hover" href="{{ route('login') }}">{{ Auth::user()->name }}&#39;</a></li>
+    <li><a class="link link-hover" href="{{ route('login') }}">ホーム</a></li>
     
      {{-- 勤怠一覧ページへのリンク --}}
     <li><a class="link link-hover" href="{{ route('login') }}">勤怠一覧</a></li>
