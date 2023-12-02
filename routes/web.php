@@ -6,6 +6,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UsersController; // 追記
 use App\Http\Controllers\UserFollowController; // 追記
 use App\Http\Controllers\AttendancesController; // 追記
+use App\Http\Controllers\SummaryController; // 追記
+
 
 /*
 |--------------------------------------------------------------------------
@@ -43,7 +45,12 @@ Route::group(['middleware' => ['auth']], function () {                          
 
 Route::group(['middleware' => ['auth']], function () {                                    // 追記
     Route::resource('users', UsersController::class,['only' => ['index', 'show']]);     // 追記
-    Route::resource('attendances', AttendancesController::class, ['only' => ['index','store']]);
+    Route::resource('attendances', AttendancesController::class, ['only' => ['index','store','show']]);
+    // Route::get('attendances/index', 'AttendancesController@index')->name('attendances.index');
+    // Route::post('attendances/index', 'AttendancesController@index')->name('attendances.index');
+    // Route::post('attendances/store', 'AttendancesController@store')->name('atendances.store');
+    // Route::get('attendances/show/{id}', 'AttendancesController@show')->name('atendances.show');
+    Route::resource('summarys', SummaryController::class);
     
 });                                                                                       // 追記
 
@@ -53,9 +60,10 @@ Route::group(['middleware' => ['auth']], function () {
     Route::group(['prefix' => 'users/{id}'], function () {                                          // 追記
         Route::post('follow', [UserFollowController::class, 'store'])->name('user.follow');         // 追記
         Route::delete('unfollow', [UserFollowController::class, 'destroy'])->name('user.unfollow'); // 追記
-        Route::get('followings', [UserFollowController::class, 'followings'])->name('users.followings'); // 追記
-        Route::get('followers', [UserFollowController::class, 'followers'])->name('users.followers');    // 追記
-        Route::get('attendances_list', [AttendancesListController::class, 'index'])->name('attendances_list');    // 追記
+        Route::get('following', [UsersController::class, 'following'])->name('users.following'); // 追記
+        Route::get('followers', [UsersController::class, 'followers'])->name('users.followers');    // 追記
+        // Route::get('index', [SummaryController::class, 'index'])->name('attendances.summarys');
+        // Route::post('', [SummaryController::class, 'store'])->name(''); 
     });
     
 });

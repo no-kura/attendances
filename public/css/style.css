@@ -1,0 +1,169 @@
+header {
+ position: fixed; /* ヘッダーを固定する */
+ top: 0; /* 上部から配置の基準位置を決める */
+ left: 0%; /* 左から配置の基準位置を決める */
+ width: 100%; /* ヘッダーの横幅を指定する */
+ height: 70px;
+ padding: 0; /* ヘッダーの余白を指定する(上下左右) */
+ background-color: #ffffff; /* ヘッダーの背景色を指定する */
+ color: #000000; /* フォントの色を指定する */
+ border-style: none;
+ z-index: 100;
+}
+
+body{
+ padding: 70px 20px 100px 20px; /* bodyの内側余白を指定する(上:右:下:左) */
+ font-size: 100%;
+}
+
+.drop {
+ position: fixed;
+ z-index: 4;
+}
+
+.Header2 {
+ position: sticky; /* ヘッダーを固定する */
+ top: 70px; /* 上部から配置の基準位置を決める */
+ padding: 0; /* ヘッダーの余白を指定する(上下左右) */
+ background-color: #ffffff; /* ヘッダーの背景色を指定する */
+ color: #000000; /* フォントの色を指定する */
+ border-style: none;
+ height: 150px;
+ z-index:2;
+}
+
+.Header3 {
+ position: sticky; /* ヘッダーを固定する */
+ top: 70px; /* 上部から配置の基準位置を決める */
+ padding: 0; /* ヘッダーの余白を指定する(上下左右) */
+ background-color: #ffffff; /* ヘッダーの背景色を指定する */
+ color: #000000; /* フォントの色を指定する */
+ border-style: none;
+ height: 80px;
+ z-index:2;
+}
+
+table.st-tbl1 { /* table th固定表示 */
+	text-align: center;
+	position: relative;
+	border-collapse: collapse;
+	border-spacing: 0;
+ border :1px;
+	left: 0;
+	bottom: 100;
+	font-size: small;
+}
+table.st-tbl1 th,
+table.st-tbl1 td{
+	padding: 5px;
+	border: solid 1px #ddd;
+	color: #696969;
+}
+table.st-tbl1 th {
+	background: #AAAAAA;
+	position: sticky;
+	top: 220px;
+	border-top:#FFFFFF;
+ z-index: 3;
+}
+
+
+table.st-tbl2 { /* table th固定表示 */
+	text-align: center;
+	position: relative;
+	border-collapse: collapse;
+	border-spacing: 0;
+ border :1px;
+	left: 0;
+	bottom: 100;
+	font-size: small;
+}
+table.st-tbl2 th,
+table.st-tbl2 td{
+	padding: 5px;
+	border: solid 1px #EEEEEE;
+	color: #696969;
+}
+table.st-tbl2 th {
+	background: #AAAAAA;
+	position: sticky;
+	top: 150px;
+	border-top:#FFFFFF;
+ z-index: 3;
+}
+
+
+
+.text-left {
+ text-align: left;
+}
+
+.text-center {
+ text-align: center;
+}
+
+.text-right {
+ text-align: right;
+}
+
+.txt{
+ display: inline-block;
+ width: 100%;
+ padding: 0.2em;
+ line-height: 0.5;
+ border: 1px solid #999;
+ box-sizing: border-box;
+ background: #ffffff;
+ margin: 0em 0;
+ }
+
+.h1{
+ font-weight: 600;
+ font-size: 120%;
+ }
+
+.table1 {
+ text-align: center;
+ border-collapse: collapse;
+ border-spacing: 0;
+ border-left: solid 1px #A9A9A9;
+ border-right: solid 1px #A9A9A9;
+ border-bottom: solid 1px #A9A9A9;
+ font-size: small;
+}
+.table1 tr {
+ border-top: solid 1px #A9A9A9;
+ border-bottom: solid 1px #A9A9A9;
+}
+.table1 th {
+ padding: 10px;
+ background: #696969;
+ border-left: solid 1px #A9A9A9;
+ border-right: solid 1px #A9A9A9;
+ color: #D3D3D3;
+}
+
+.table1 td {
+ padding: 5px;
+ border-left: solid 1px #A9A9A9;
+ border-right: solid 1px #A9A9A9;
+}
+
+.table2 {
+ text-align: left;
+ border-collapse: collapse;
+ border-spacing: 0;
+}
+.table2 tr {
+ background: #ffffff;
+ border-top: none;
+ border-bottom: none;
+ border-left: none; 
+}
+.table2 td {
+ border-bottom: none;
+ padding: 10px;
+ border-right: none;
+}
+
+

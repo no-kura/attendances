@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 
 class User extends Authenticatable
@@ -53,6 +54,16 @@ class User extends Authenticatable
     }
     
     
+    /**
+    * このユーザが所有する勤怠表。（ Summaryモデルとの関係を定義）
+    */
+    public function summary()
+    {
+        return $this->hasMany(Summary::class);
+    }
+    
+    
+    
        /**
      * このユーザに関係するモデルの件数をロードする。
      */
@@ -68,6 +79,7 @@ class User extends Authenticatable
     public function followings()
     {
         return $this->belongsToMany(User::class, 'user_follow', 'user_id', 'follow_id')->withTimestamps();
+        
     }
     
     /**
@@ -126,28 +138,6 @@ class User extends Authenticatable
     {
         return $this->followings()->where('follow_id', $userId)->exists();
     }
-    
-    
-         /**
-     * 勤怠カレンダー　日付自動取得
-     */
-    public function calendar()
-    {
-        $firstOfMonth = Carbon::now()->firstOfMonth();
-        $endOfMonth = $firstOfMonth->copy()->endOfMonth()->format('Y-m-d');
-
-        $date = [];
-        for ($i = 0; true; $i++) {
-        $A = $firstOfMonth->copy()->addDays($i)->format('Y-m-d');
-        if ($A > $endOfMonth) {
-            break;
-        }
-        $date[] = $A;
-        // echo $date->format('m/d'). PHP_EOL;
-           
-        }
-         return $date;
-    }   
     
     
 }

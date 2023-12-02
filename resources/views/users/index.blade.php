@@ -12,7 +12,7 @@
                     <path stroke-linecap="round" stroke-linejoin="round" d="M19 7.5v3m0 0v3m0-3h3m-3 0h-3m-2.25-4.125a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zM4 19.235v-.11a6.375 6.375 0 0112.75 0v.109A12.318 12.318 0 0110.374 21c-2.331 0-4.512-.645-6.374-1.766z" />
                 </svg>
 
-                新規ユーザー登録</a>
+            新規ユーザー登録</a>
         </div>
             
     {{-- ページネーションのリンク --}}
@@ -20,10 +20,10 @@
     
     
     @if (isset($users))
-        <table class="table table-zebra w-full my-4">
+        <table class="table1" width="100%">
             <thead>
-                <tr align="center">
-                    <th align="center">
+                <tr class="table1">
+                    <th align="center" width="80px">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4 inline">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
                         </svg>
@@ -31,7 +31,7 @@
                         ID
                     </th>
                     
-                    <th align="center">
+                    <th align="center" width="200px">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4 inline">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
                         </svg>
@@ -39,7 +39,7 @@
                         ユーザー名
                     </th>
                     
-                    <th align="center">
+                    <th align="center" width="300px">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4 inline">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75" />
                         </svg>
@@ -60,10 +60,17 @@
                 @foreach ($users as $user)
                 <tr align="center">
                     <td>{{ $user->id }}</td>
-                    <td><a class="link link-hover text-info" href="{{ route('users.show',$user->id) }}">{{ $user->name }}</a></td>
+                    
+                @if(Auth::user() == $user)
+                    <td><a class="link link-hover text-info" href="{{ route('attendances.index') }}">{{ $user->name }}</a></td>
+                @else
+                    <td><a class="link link-hover text-info" href="{{ route('attendances.show',$user->id) }}">{{ $user->name }}</a></td>
+                @endif
+                
                     <td>{{ $user->email }}</td>
-                    <td>{{ $user->content }}</td>
-                    <td></td>
+                    <td>
+                    @include('users.follow_button')
+                    </td>
                 </center></tr>
                 @endforeach
             </tbody>
