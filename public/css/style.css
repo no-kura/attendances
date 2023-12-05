@@ -67,7 +67,6 @@ table.st-tbl1 th {
  z-index: 3;
 }
 
-
 table.st-tbl2 { /* table th固定表示 */
 	text-align: center;
 	position: relative;
@@ -91,8 +90,6 @@ table.st-tbl2 th {
 	border-top:#FFFFFF;
  z-index: 3;
 }
-
-
 
 .text-left {
  text-align: left;
@@ -165,5 +162,3 @@ table.st-tbl2 th {
  padding: 10px;
  border-right: none;
 }
-
-

@@ -62,8 +62,7 @@ Route::group(['middleware' => ['auth']], function () {
         Route::delete('unfollow', [UserFollowController::class, 'destroy'])->name('user.unfollow'); // 追記
         Route::get('following', [UsersController::class, 'following'])->name('users.following'); // 追記
         Route::get('followers', [UsersController::class, 'followers'])->name('users.followers');    // 追記
-        // Route::get('index', [SummaryController::class, 'index'])->name('attendances.summarys');
+        // Route::get('', [SummaryController::class, 'index'])->name('attendances.summarys');
         // Route::post('', [SummaryController::class, 'store'])->name(''); 
     });
-    
 });

@@ -20,11 +20,10 @@ class AttendancesController extends Controller
         $data = [];//dd($data);
         if (\Auth::check()) { // 認証済みの場合
             // 認証済みユーザを取得
-           
             $user = \Auth::user();
         
             $now = Carbon::now()->firstOfMonth();
-            $this_month = Carbon::now()->firstOfMonth();//dd($this_month);
+            $this_month = Carbon::now()->firstOfMonth();
             
             if($request->firstOfMonth) {
                 $now = new Carbon($request->firstOfMonth);
@@ -42,42 +41,39 @@ class AttendancesController extends Controller
             }
             else {
                 $firstOfMonth = Carbon::now()->firstOfMonth();
-             }
+            }
             
             
-            $b = $firstOfMonth->copy();
+            $FMonth = $firstOfMonth->copy();
             $endOfMonth = $firstOfMonth->copy()->endOfMonth();
             
-            $attendances = DB::table('attendances')->where('user_id',$user->id)     // attendancesテーブルから、useridの確認->日付の初日から末日を取得->その中の勤務時間が入っているものを取得
-                ->whereBetween('date',[$b,$endOfMonth])->where('working', '<>' ,0)
+            $attendances = DB::table('attendances')->where('user_id',$user->id)
+                ->whereBetween('date',[$FMonth,$endOfMonth])//->where('working', '<>' ,0)
                 ->get();
-            
+           
             $day_count = $attendances->count('working');  // 各月の勤務日数
             $total_working = $attendances->sum('working'); // 各月の総出勤時間
             
-            
             $date = [];
             for ($i = 0; true; $i++) {
-                $A = $firstOfMonth->copy()->addDays($i);
-                if ($A > $endOfMonth) {
+                $dt = $firstOfMonth->copy()->addDays($i);
+                if ($dt > $endOfMonth) {
                     break;
                 }
-            //dd($A);
-                $date[] = $A;
+                $date[] = $dt;
+            }
             
-            
-                $data = [
-                    'user' => $user,
-                    'attendances' => $attendances,
-                    'date' => $date,
-                    'firstOfMonth' => $firstOfMonth,
-                    'this_month' => $this_month,
-                    'day_count' => $day_count,
-                    'total_working' => $total_working,
-                ]; 
-             //dd($date);
-        }
-    }
+    }//dd($date);
+    
+    $data = [
+            'user' => $user,
+            'attendances' => $attendances,
+            'date' => $date,
+            'firstOfMonth' => $firstOfMonth,
+            'this_month' => $this_month,
+            'day_count' => $day_count,
+            'total_working' => $total_working,
+            ]; 
         // attendancesビューでそれらを表示
         return view('attendances.attendances', $data);
     }
@@ -212,7 +208,7 @@ class AttendancesController extends Controller
             $endOfMonth = $firstOfMonth->copy()->endOfMonth();
             
             $attendances = DB::table('attendances')->where('user_id',$user->id)     // attendancesテーブルから、useridの確認->日付の初日から末日を取得->その中の勤務時間が入っているものを取得
-                ->whereBetween('date',[$b,$endOfMonth])->where('working', '<>' ,0)
+                ->whereBetween('date',[$b,$endOfMonth])//->where('working', '<>' ,0)
                 ->get();
             
             $day_count = $attendances->count('working');  // 各月の勤務日数

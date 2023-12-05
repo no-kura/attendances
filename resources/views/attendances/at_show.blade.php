@@ -20,7 +20,7 @@
         <table class="table2" width="100%">
             <tr class="table2">  
                 <td width="50%" align="left">
-                    <form method="GET" action="{{ route('attendances.index') }}" class="">
+                    <form method="GET" action="{{ route('attendances.show',$user->id) }}" class="">
                     @csrf 
                         <button type="submit" name="add_last_month" class="btn btn-sm btn-error btn-outline"> 前月</button>
                         <button type="submit" name="this_month" class="btn btn-sm btn-error btn-outline"> 当月</button>
@@ -56,11 +56,27 @@
                 @php
                     $ondate = $attendances-> where('date',$d);
                     if($ondate->isNotEmpty()) {
+                        
+                        if($ondate[$key]->working==0) {
+                        $onpunchin = null;
+                        $onpunchout = null;
+                        $onworking = null; 
+                        $onmemo = null;
+                        }
+                        else{
                         $onpunchin = mb_substr($ondate[$key]->punchin, 11 ,5);
                         $onpunchout = mb_substr($ondate[$key]->punchout, 11 ,5);
                         $onworking = $ondate[$key]->working; 
                         $onmemo = $ondate[$key]->memo;
+                        }
                     }
+                    else {
+                        $onpunchin = null;
+                        $onpunchout = null;
+                        $onworking = null; 
+                        $onmemo = null;
+                    }
+                    
                     $dw = $d->isoformat('YYYY/MM/DD(ddd)');
                 @endphp
                 
@@ -84,7 +100,11 @@
                     <td width="10%" align="center">{{ $onpunchout }}</td>
                     
                 {{--勤務時間--}}    
-                    <td width="10%" align="center">{{ $onworking }}</td>
+                    @if($onworking == null)
+                    <td width="10%">{{ $onworking }}</td>
+                    @else
+                    <td width="10%">{{ $onworking }} 時間</td>
+                    @endif
                     
                 {{--備考（MEMO）--}}    
                     <td width="60%" align="left">{{ $onmemo }}

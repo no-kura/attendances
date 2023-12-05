@@ -58,19 +58,34 @@
 
         <tbody>
             @foreach ($date as $key=>$d){{--年月日と曜日の自動表示--}}
-            
-            @php
-                $ondate = $attendances-> where('date',$d);
-                if($ondate->isNotEmpty()) {
-                    $onpunchin = mb_substr($ondate[$key]->punchin, 11 ,5);
-                    $onpunchout = mb_substr($ondate[$key]->punchout, 11 ,5);
-                    $onworking = $ondate[$key]->working; 
-                    $onmemo = $ondate[$key]->memo;
-                }
-                $dw = $d->isoformat('YYYY/MM/DD(ddd)');
-            @endphp
-            
-                @if(strpos($dw,'土'))  
+                @php
+                    $ondate = $attendances-> where('date',$d);
+                    if($ondate->isNotEmpty()) {
+                        
+                        if($ondate[$key]->working==0) {
+                        $onpunchin = null;
+                        $onpunchout = null;
+                        $onworking = null; 
+                        $onmemo = null;
+                        }
+                        else{
+                        $onpunchin = mb_substr($ondate[$key]->punchin, 11 ,5);
+                        $onpunchout = mb_substr($ondate[$key]->punchout, 11 ,5);
+                        $onworking = $ondate[$key]->working; 
+                        $onmemo = $ondate[$key]->memo;
+                        }
+                    }
+                    else {
+                        $onpunchin = null;
+                        $onpunchout = null;
+                        $onworking = null; 
+                        $onmemo = null;
+                    }
+                    
+                    $dw = $d->isoformat('YYYY/MM/DD(ddd)');
+                @endphp
+                
+                @if(strpos($dw,'土'))
                     <tr bgcolor="#87cefa">
                 @elseif(strpos($dw,'日'))
                     <tr bgcolor="#FF4500">
@@ -80,7 +95,7 @@
             
                     <td width="10%">{{ $dw }}
                     </td>
-                    
+                        
                 @if($ondate->isNotEmpty())
                 {{--出勤時間--}}
                     <td width="10%"><input type="time" name="punchin{{$key}}" min="00:00" max="24:00" value={{ $onpunchin }} ></td>
@@ -88,12 +103,16 @@
                  {{--退勤時間--}}   
                     <td width="10%"><input type="time" name="punchout{{$key}}" min="00:00" max="24:00" value={{ $onpunchout }}></td>
                     
-                {{--勤務時間--}}    
+                {{--勤務時間--}}
+                    @if($onworking == null)
+                    <td width="10%"><input type="text" class="text-center" style="text-align center;width:80px;" name="working{{$key}}" value={{ $onworking }}></td>
+                    @else
                     <td width="10%"><input type="text" class="text-center" style="text-align center;width:80px;" name="working{{$key}}" value={{ $onworking }}時間></td>
+                    @endif
                     
                 {{--備考（MEMO）--}}    
                     <td width="60%"><input type="text" class="txt" name="memo{{$key}}" size="30" value={{ $onmemo }}></td>
-                
+                    
                 @else
                 {{--出勤時間--}}
                     <td width="10%"><input type="time" name="punchin{{$key}}" min="00:00" max="24:00" value=""></td>
@@ -112,14 +131,14 @@
                     </tr>
                 
                     <input type="hidden" name="key" value={{$key}}>
-                
+                    
             @endforeach
                 <input type="hidden" name="user_id" value={{$user->id}}>
         </tbody>
     </table>
     
     </form>
-        @endif
+    @endif
 @endif
 @endsection
   
