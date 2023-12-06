@@ -23,7 +23,7 @@ body{
  background-color: #ffffff; /* ヘッダーの背景色を指定する */
  color: #000000; /* フォントの色を指定する */
  border-style: none;
- height: 150px;
+ height: 170px;
  z-index:2;
 }
 
@@ -34,7 +34,7 @@ body{
  background-color: #ffffff; /* ヘッダーの背景色を指定する */
  color: #000000; /* フォントの色を指定する */
  border-style: none;
- height: 80px;
+ height: 90px;
  z-index:2;
 }
 
@@ -57,7 +57,7 @@ table.st-tbl1 td{
 table.st-tbl1 th {
 	background: #AAAAAA;
 	position: sticky;
-	top: 220px;
+	top: 240px;
 	border-top:#FFFFFF;
  z-index: 3;
 }
@@ -81,7 +81,7 @@ table.st-tbl2 td{
 table.st-tbl2 th {
 	background: #AAAAAA;
 	position: sticky;
-	top: 150px;
+	top: 160px;
 	border-top:#FFFFFF;
  z-index: 3;
 }
@@ -112,6 +112,7 @@ table.st-tbl2 th {
 .h1{
  font-weight: 600;
  font-size: 120%;
+ padding: 10px;
  }
 
 .table1 {

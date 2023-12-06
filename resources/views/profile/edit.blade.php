@@ -12,6 +12,7 @@
 --}}
 
 {{-- ユーザー名・メルアド編集--}}
+<div align="center">
     <form method="post" action="{{ route('profile.update', $user->id) }}" class="mt-6 space-y-6 w-1/2">
         @csrf
         @method('put')
@@ -26,7 +27,6 @@
             <x-input-label for="email" :value="__('メールアドレス')" />
             <x-text-input id="email" name="email" type="email" class="mt-1 block w-full" :value="old('email', $user->email)" required autocomplete="username" />
             <x-input-error class="mt-2" :messages="$errors->get('email')" />
-
         </div>
 
         <div class="flex items-center gap-4">
@@ -44,4 +44,5 @@
 --}}
         </div>
     </form>
+</div>
 @endsection

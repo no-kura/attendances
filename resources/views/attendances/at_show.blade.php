@@ -4,13 +4,16 @@
     
 @if(Auth::user())
     
-    <div class="Header2" height="150">
+    <div class="Header2" height="170">
         <h1 class="h1">{{ $firstOfMonth->isoformat('YYYY'.'年'.'M'.'月')}}勤怠表</h1>
         
-            ID: ( {{ $user->id }} )
-            氏名 :  {{ $user->name }}さん
-            
-        <table class="table1" width="">   
+        <table class="table1"> 
+            <tr class="table1">
+                <td colspan="2">
+                    ID  [ {{ $user->id }} ] 
+                    氏名 :  {{ $user->name }}さん
+                </td>
+                
             <tr class="table1">
                 <td>出勤日数 : {{ $day_count }} 日</td>
                 <td>総勤務時間 : {{ $total_working }} 時間</td>
