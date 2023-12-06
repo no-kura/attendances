@@ -18,17 +18,17 @@ class UsersTableSeeder extends Seeder
         DB::table('users')->insert([
             'name' => '長野',
             'email' => 'nagano@nagano.com',
-            'password' => 'password'
+            'password' => bcrypt('password'),
         ]);
         DB::table('users')->insert([
             'name' => '秋田',
             'email' => 'akita@akita.com',
-            'password' => 'password'
+            'password' => bcrypt('password'),
         ]);
         DB::table('users')->insert([
             'name' => '熊木',
             'email' => 'kumaki@kumaki.com',
-            'password' => 'password'
+            'password' => bcrypt('password'),
         ]);
     }
 }

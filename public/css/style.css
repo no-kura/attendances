@@ -16,11 +16,6 @@ body{
  font-size: 100%;
 }
 
-.drop {
- position: fixed;
- z-index: 4;
-}
-
 .Header2 {
  position: sticky; /* ヘッダーを固定する */
  top: 70px; /* 上部から配置の基準位置を決める */

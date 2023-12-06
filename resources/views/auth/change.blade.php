@@ -3,7 +3,7 @@
 @section('content')
 
     <div class="prose mx-auto text-center form-control my-4">
-        <h2>新規ユーザー登録</h2>
+        <h2>ユーザー登録情報　変更</h2>
     </div>
 
     <div class="flex justify-center">
@@ -12,7 +12,7 @@
 
             <div class="form-control my-4">
                 <label for="name" class="label">
-                    <span class="label-text">ユーザー名</span>
+                    <span class="label-text">アカウント名</span>
                 </label>
                 <input type="text" name="name" class="input input-bordered w-full">
             </div>
